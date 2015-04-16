@@ -95,6 +95,11 @@ public class AmericanToad extends Solitaire{
 		model.addElement(pileWaste);
 		
 		pileReserve = new BuildablePile("pileReserve");
+		for(int i = 0; i < 20; i++) {
+			Card c = deck.get();
+			c.setFaceUp(true);
+			pileReserve.add (c);
+		}
 		model.addElement(pileReserve);
 		
 		pile1 = new Pile("foundation1");
@@ -113,20 +118,27 @@ public class AmericanToad extends Solitaire{
 		model.addElement(pile7);
 		pile8 = new Pile("foundation8");
 		model.addElement(pile8);
-		
-		for(int i = 0; i < 20; i++) {
-			Card c = deck.get();
-
-			c.setFaceUp(true);
-			pileReserve.add (c);
-		}
-		
 		//end piles
 		
 		/*
 		 * columns
 		 */
-		
+		column1 = new Column("tableau1");
+		model.addElement(column1);
+		column2 = new Column("tableau2");
+		model.addElement(column2);
+		column3 = new Column("tableau3");
+		model.addElement(column3);
+		column4 = new Column("tableau4");
+		model.addElement(column4);
+		column5 = new Column("tableau5");
+		model.addElement(column5);
+		column6 = new Column("tableau6");
+		model.addElement(column6);
+		column7 = new Column("tableau7");
+		model.addElement(column7);
+		column8 = new Column("tableau8");
+		model.addElement(column8);
 		
 		//end columns
 		
@@ -182,6 +194,42 @@ public class AmericanToad extends Solitaire{
 		pileView8 = new PileView(pile8);
 		pileView8.setBounds(740,120, wid, hei);
 		container.addWidget(pileView8);
+		
+		/*
+		 * columns
+		 */
+		columnView1 = new ColumnView(column1);
+		columnView1.setBounds(180, 220, wid, hei);
+		container.addWidget(columnView1);
+		
+		columnView2 = new ColumnView(column2);
+		columnView2.setBounds(260, 220, wid, hei);
+		container.addWidget(columnView2);
+		
+		columnView3 = new ColumnView(column3);
+		columnView3.setBounds(340, 220, wid, hei);
+		container.addWidget(columnView3);
+		
+		columnView4 = new ColumnView(column4);
+		columnView4.setBounds(420, 220, wid, hei);
+		container.addWidget(columnView4);
+		
+		columnView5 = new ColumnView(column5);
+		columnView5.setBounds(500, 220, wid, hei);
+		container.addWidget(columnView5);
+		
+		columnView6 = new ColumnView(column6);
+		columnView6.setBounds(580, 220, wid, hei);
+		container.addWidget(columnView6);
+		
+		columnView7 = new ColumnView(column7);
+		columnView7.setBounds(660, 220, wid, hei);
+		container.addWidget(columnView7);
+		
+		columnView8 = new ColumnView(column8);
+		columnView8.setBounds(740, 220, wid, hei);
+		container.addWidget(columnView8);
+
 	}
 	
 	private void initControllers() {
@@ -198,7 +246,7 @@ public class AmericanToad extends Solitaire{
 	
 	@Override
 	public Dimension getPreferredSize() {
-		return new Dimension (1200, 600);
+		return new Dimension (900, 650);
 	}
 	
 	/** Code to launch solitaire variation. */
