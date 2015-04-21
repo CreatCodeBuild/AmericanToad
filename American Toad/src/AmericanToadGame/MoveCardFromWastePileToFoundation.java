@@ -75,7 +75,8 @@ public class MoveCardFromWastePileToFoundation extends Move {
 				}
 			} else {
 				if(draggingCard.getSuit() == toFoundation.suit() 
-						&& draggingCard.getRank() - 1 == toFoundation.rank()) {
+				&& (draggingCard.getRank() - 1 == toFoundation.rank()
+				|| (draggingCard.getRank() == Card.ACE && toFoundation.rank() == Card.KING))) {
 					System.out.println(TAG + "::4");
 					return true;
 				} else {

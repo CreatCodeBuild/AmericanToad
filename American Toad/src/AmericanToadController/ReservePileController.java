@@ -30,13 +30,6 @@ public class ReservePileController extends SolitaireReleasedAdapter {
 			return;
 		}
 
-		// No Face Up cards means that we must be requesting to flip a card.
-		// If we get here, we must have some cards in the BuildablePile
-		if (theBP.getNumFaceUp() == 0) {
-			System.out.println(TAG + "::no cards left in reserve pile");
-			return;
-		}
-
 		// Get a column of cards to move from the BuildablePileView
 		// Note that this method will alter the model for BuildablePileView if the condition is met.
 		ColumnView colView = src.getColumnView (me);
@@ -51,13 +44,6 @@ public class ReservePileController extends SolitaireReleasedAdapter {
 		if (col == null) {
 			System.err.println ("BuildablePileController::mousePressed(): Unexpectedly encountered a ColumnView with no Column.");
 			return; // sanity check, but should never happen.
-		}
-
-		// verify that Column has desired Klondike Properties to move
-		if ((!col.descending()) || (!col.alternatingColors())) {
-			theBP.push (col);
-			java.awt.Toolkit.getDefaultToolkit().beep();
-			return; // announce our displeasure
 		}
 
 		// If we get here, then the user has indeed clicked on the top card in the PileView and

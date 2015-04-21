@@ -124,7 +124,7 @@ public class AmericanToad extends Solitaire{
 		}
 		for(int i = 0; i < 8; i++) {
 			tableauView[i] = new ColumnView(tableau[i]);
-			tableauView[i].setBounds(180 + i*80, 220, wid, hei*13);
+			tableauView[i].setBounds(180 + i*80, 220, wid, hei*3);
 			container.addWidget(tableauView[i]);
 		}
 		baseRankView = new IntegerView(baseRank);
@@ -170,7 +170,7 @@ public class AmericanToad extends Solitaire{
 	
 	/** Code to launch solitaire variation. */
 	public static void main (String []args) {
-		Main.generateWindow(new AmericanToad(), Deck.OrderByRank);
+		Main.generateWindow(new AmericanToad(), Deck.OrderBySuit);
 	}
 
 }

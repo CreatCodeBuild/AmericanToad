@@ -14,10 +14,10 @@ import ks.common.view.ColumnView;
 import ks.common.view.Container;
 import ks.common.view.Widget;
 import AmericanToadGame.AmericanToad;
-import AmericanToadGame.MoveCardFromReservePileToFoundation;
 import AmericanToadGame.MoveCardFromReservePileToTableau;
 import AmericanToadGame.MoveCardFromWastePileToFoundation;
 import AmericanToadGame.MoveCardFromWastePileToTableau;
+import AmericanToadGame.MoveColumnFromTableuToTableau;
 
 
 public class TableauController extends MouseAdapter {
@@ -56,7 +56,29 @@ public class TableauController extends MouseAdapter {
 		if (fromWidget instanceof ColumnView) {
 			//move cards from tableau to tableau
 			System.out.println(TAG + "::from tableau to tableau");
-			
+			//from wastePile
+			Column fromTableau = (Column) fromWidget.getModelElement();
+
+			ColumnView colView = (ColumnView) draggingWidget;
+			Column col = (Column) colView.getModelElement();
+			if (col == null) {
+				System.err.println (TAG + "::mouseReleased(): somehow CardView model element is null.");
+				c.releaseDraggingObject();
+				return;
+			}
+			if(fromTableau.equals(toTableau)) {
+				System.out.println(TAG + "::same tableau");
+				fromWidget.returnWidget (draggingWidget);
+				c.releaseDraggingObject();
+			} else {
+				Move m = new MoveColumnFromTableuToTableau(fromTableau, toTableau, col, col.count());
+				if (m.doMove (theGame)) {
+					theGame.pushMove (m);
+				} else {
+					System.out.println(TAG + "failed on doing MoveCardFromWastePileToFoundation");
+					fromWidget.returnWidget (draggingWidget);
+				}
+			}
 		} else if(fromWidget instanceof BuildablePileView) {
 			System.out.println(TAG + "::from reserve pile to tableau");
 			//move card from reserve pile to tableau
@@ -108,6 +130,34 @@ public class TableauController extends MouseAdapter {
 	
 	public void mousePressed(MouseEvent me) {
 		//dragging a column
+		Container c = theGame.getContainer();
+		
+		Column col = (Column) src.getModelElement();
+		if(col.count() == 0) {
+			return;
+		}
+		
+		ColumnView colView = src.getColumnView (me);
+		
+		if (colView == null) {
+			return;
+		}
+		
+		Widget w = c.getActiveDraggingObject();
+		if (w != Container.getNothingBeingDragged()) {
+			System.err.println (TAG + "::mousePressed(): Unexpectedly encountered a Dragging Object during a Mouse press.");
+			return;
+		}
+		
+		// Tell container which object is being dragged, and where in that widget the user clicked.
+		c.setActiveDraggingObject (colView, me);
+
+		// Tell container which BuildablePileView is the source for this drag event.
+		c.setDragSource (src);
+
+		// we simply redraw our source pile to avoid flicker,
+		// rather than refreshing all widgets...
+		src.redraw();
 	}
 	
 	public void mouseClicked(MouseEvent me) {

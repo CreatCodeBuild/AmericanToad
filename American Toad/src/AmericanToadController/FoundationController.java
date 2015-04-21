@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 
 import AmericanToadGame.AmericanToad;
 import AmericanToadGame.MoveCardFromReservePileToFoundation;
+import AmericanToadGame.MoveCardFromTableauToFoundation;
 import AmericanToadGame.MoveCardFromWastePileToFoundation;
 import ks.common.model.BuildablePile;
 import ks.common.model.Card;
@@ -79,7 +80,26 @@ public class FoundationController extends java.awt.event.MouseAdapter {
 				}
 			}
 		} else if(fromWidget instanceof ColumnView) {
+			Column fromTableau = (Column) fromWidget.getModelElement();
 			
+			ColumnView columnView = (ColumnView) draggingWidget;
+			Column col = (Column) columnView.getModelElement();
+			if (col == null) {
+				System.err.println ("FoundationController::mouseReleased(): somehow ColumnView model element is null.");
+				c.releaseDraggingObject();			
+				return;
+			}
+
+			if (col.count() != 1) {
+				fromWidget.returnWidget (draggingWidget);  // return home
+			} else {
+				Move m = new MoveCardFromTableauToFoundation (fromTableau, foundation, col.peek(), theGame.getBaseRank().getValue());
+				if (m.doMove (theGame)) {
+					theGame.pushMove (m);
+				} else {
+					fromWidget.returnWidget (draggingWidget);
+				}
+			}
 		} else {
 			//from wastePile
 			Pile wastePile = (Pile) fromWidget.getModelElement();

@@ -1,28 +1,26 @@
 package AmericanToadGame;
 
 import ks.common.games.Solitaire;
-import ks.common.model.BuildablePile;
 import ks.common.model.Card;
 import ks.common.model.Column;
 import ks.common.model.Move;
 import ks.common.model.Pile;
 
-public class MoveCardFromReservePileToFoundation extends Move {
+public class MoveCardFromTableauToFoundation extends Move{
+	public static final String TAG = "MoveCardFromTableauToFoundation";
 	
-	public static final String TAG = "MoveCardFromReservePileToFoundation";
-
-	BuildablePile fromReservePile;
+	Column fromTableau;
 	Pile toFoundation;
 	Card card;
 	int baseRank;
 	
-	public MoveCardFromReservePileToFoundation(BuildablePile pile, Pile foundation, Card c, int rank) {
-		fromReservePile = pile;
-		toFoundation = foundation;
+	public MoveCardFromTableauToFoundation(Column from, Pile to, Card c, int base) {
+		fromTableau = from;
+		toFoundation = to;
 		card = c;
-		baseRank = rank;
+		baseRank = base;
 	}
-
+	
 	@Override
 	public boolean doMove(Solitaire theGame) {
 		if (!valid (theGame))
@@ -31,7 +29,7 @@ public class MoveCardFromReservePileToFoundation extends Move {
 		// EXECUTE:
 		// Deal with both situations
 		if (card == null)
-			toFoundation.add (fromReservePile.get());
+			toFoundation.add (fromTableau.get());
 		else
 			toFoundation.add (card);
 	
@@ -43,7 +41,7 @@ public class MoveCardFromReservePileToFoundation extends Move {
 	@Override
 	public boolean undo(Solitaire theGame) {
 		if (toFoundation.empty()) return false;
-		fromReservePile.add (toFoundation.get());
+		fromTableau.add (toFoundation.get());
 		return true;
 	}
 
@@ -65,7 +63,7 @@ public class MoveCardFromReservePileToFoundation extends Move {
 			} else {
 				if(card.getSuit() == toFoundation.suit() 
 				&&( card.getRank() - 1 == toFoundation.rank()
-				 || (card.getRank() == Card.ACE && toFoundation.rank() == Card.KING))) {
+				|| (card.getRank() == Card.ACE && toFoundation.rank() == Card.KING))) {
 					System.out.println(TAG + "::4");
 					return true;
 				} else {
@@ -75,5 +73,5 @@ public class MoveCardFromReservePileToFoundation extends Move {
 			}
 		}
 	}
-
+	
 }
