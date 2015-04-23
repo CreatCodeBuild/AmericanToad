@@ -42,7 +42,7 @@ public class AmericanToad extends Solitaire{
 	BuildablePileView pileViewReserve;
 	
 	//tableaus are columns
-	Column tableau[] = new Column[8];
+	public Column tableau[] = new Column[8];
 	ColumnView tableauView[] = new ColumnView[8];
 
 	IntegerView baseRankView;
