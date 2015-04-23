@@ -78,6 +78,16 @@ public class TableauController extends MouseAdapter {
 					System.out.println(TAG + "failed on doing MoveCardFromWastePileToFoundation");
 					fromWidget.returnWidget (draggingWidget);
 				}
+				
+				if(fromTableau.empty()) {
+					Move auto = new MoveCardFromReservePileToTableau(theGame.pileReserve, fromTableau, theGame.pileReserve.get());
+					
+					if(auto.doMove(theGame)) {
+						theGame.pushMove(auto);
+					} else {
+						
+					}
+				}
 			}
 		} else if(fromWidget instanceof BuildablePileView) {
 			System.out.println(TAG + "::from reserve pile to tableau");

@@ -29,15 +29,15 @@ public class AmericanToad extends Solitaire{
 	public static final String TAG = "AmericanToad";
 	private static final String NAME = "American Toad";
 	
-	MultiDeck deck;
-	DeckView deckView;
+	public MultiDeck deck;
+	public DeckView deckView;
 	
 	//foundations are piles
-	Pile foundation[] = new Pile[8];
-	Pile pileWaste;
-	BuildablePile pileReserve;
+	public Pile foundation[] = new Pile[8];
+	public Pile pileWaste;
+	public BuildablePile pileReserve;
 	
-	PileView foundationView[] = new PileView[8];
+	public PileView foundationView[] = new PileView[8];
 	PileView pileViewWaste;
 	BuildablePileView pileViewReserve;
 	

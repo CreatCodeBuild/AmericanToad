@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 
 import AmericanToadGame.AmericanToad;
 import AmericanToadGame.MoveCardFromReservePileToFoundation;
+import AmericanToadGame.MoveCardFromReservePileToTableau;
 import AmericanToadGame.MoveCardFromTableauToFoundation;
 import AmericanToadGame.MoveCardFromWastePileToFoundation;
 import ks.common.model.BuildablePile;
@@ -98,6 +99,16 @@ public class FoundationController extends java.awt.event.MouseAdapter {
 					theGame.pushMove (m);
 				} else {
 					fromWidget.returnWidget (draggingWidget);
+				}
+				
+				if(fromTableau.empty()) {
+					Move auto = new MoveCardFromReservePileToTableau(theGame.pileReserve, fromTableau, theGame.pileReserve.get());
+					
+					if(auto.doMove(theGame)) {
+						theGame.pushMove(auto);
+					} else {
+						
+					}
 				}
 			}
 		} else {

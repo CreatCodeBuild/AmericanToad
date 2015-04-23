@@ -1,37 +1,28 @@
 package AmericanToadGameTest;
 
-import junit.framework.TestCase;
+import AmericanToadGame.AmericanToad;
+import ks.client.gamefactory.GameWindow;
+import ks.common.model.Deck;
+import ks.launcher.Main;
+import ks.tests.KSTestCase;
 
-public class AmericanToadTest extends TestCase {
+public class AmericanToadTest extends KSTestCase {
 	
-	
-
-	public void testHasWon() {
-		fail("Not yet implemented");
-	}
-
-	public void testInitialize() {
-		fail("Not yet implemented");
-	}
-
-	public void testGetBaseRank() {
-		fail("Not yet implemented");
-	}
-
-	public void testSetBaseRank() {
-		fail("Not yet implemented");
-	}
-
-	public void testGetName() {
-		fail("Not yet implemented");
-	}
-
-	public void testGetPreferredSize() {
-		fail("Not yet implemented");
-	}
-
-	public void testMain() {
-		fail("Not yet implemented");
-	}
+	// this is the game under test.
+		AmericanToad game;
+		
+		// window for game.
+		GameWindow gw;
+		
+		protected void setUp() {
+			game = new AmericanToad();
+			gw = Main.generateWindow(game, Deck.OrderBySuit); 
+			
+		}
+		
+		protected void tearDown() {
+			gw.setVisible(false);
+			gw.dispose();
+		}
 
 }
