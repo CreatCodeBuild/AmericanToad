@@ -76,7 +76,7 @@ public class FoundationController extends java.awt.event.MouseAdapter {
 				if (m.doMove (theGame)) {
 					// Success
 					theGame.pushMove (m);
-					theGame.score += 1;
+					//theGame.updateScore(1);
 				} else {
 					fromWidget.returnWidget (draggingWidget);
 				}
@@ -98,7 +98,7 @@ public class FoundationController extends java.awt.event.MouseAdapter {
 				Move m = new MoveCardFromTableauToFoundation (fromTableau, foundation, col.peek(), theGame.getBaseRank().getValue());
 				if (m.doMove (theGame)) {
 					theGame.pushMove (m);
-					theGame.score += 1;
+					//theGame.updateScore(1);
 				} else {
 					fromWidget.returnWidget (draggingWidget);
 				}
@@ -126,7 +126,7 @@ public class FoundationController extends java.awt.event.MouseAdapter {
 			Move m = new MoveCardFromWastePileToFoundation (wastePile, foundation, theCard, theGame.getBaseRank().getValue());
 			if (m.doMove (theGame)) {
 				theGame.pushMove (m);
-				theGame.score += 1;
+				//theGame.updateScore(1);
 			} else {
 				fromWidget.returnWidget (draggingWidget);
 			}

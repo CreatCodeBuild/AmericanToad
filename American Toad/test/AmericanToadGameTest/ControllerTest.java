@@ -73,11 +73,25 @@ public class ControllerTest extends KSTestCase {
 
 	}
 	
-	public void TableauController() {
-		//from waste
-		
-		//from reserve
-		
+	public void testTableauController() {
 		//from tableau
+		MouseEvent pressT1 = createPressed(game, game.tableauView[1], 0, 0);
+		game.tableauView[1].getMouseManager().handleMouseEvent(pressT1);
+		MouseEvent releaseT0 = createReleased(game, game.tableauView[0], 0, 0);
+		game.tableauView[0].getMouseManager().handleMouseEvent(releaseT0);
+		
+		//from waste
+		game.undoMove();
+		MouseEvent pressR = createPressed(game, game.pileViewReserve, 0, game.pileViewReserve.getHeight()- 100);
+		game.pileViewReserve.getMouseManager().handleMouseEvent(pressR);
+		MouseEvent releaseT1 = createReleased(game, game.tableauView[1], 0, 0);
+		game.tableauView[1].getMouseManager().handleMouseEvent(releaseT1);
+		//from reserve
+		game.undoMove();
+		MouseEvent pressW = createPressed(game, game.pileViewWaste, 0, 0);
+		game.pileViewWaste.getMouseManager().handleMouseEvent(pressW);
+		
+		game.tableauView[1].getMouseManager().handleMouseEvent(releaseT1);
+		
 	}
 }

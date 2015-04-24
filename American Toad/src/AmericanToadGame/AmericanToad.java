@@ -49,7 +49,6 @@ public class AmericanToad extends Solitaire{
 	MutableInteger baseRank;
 	
 	IntegerView scoreView;
-	public int score = 0;
 
 	public MutableInteger getBaseRank() {
 		return baseRank;
@@ -66,7 +65,7 @@ public class AmericanToad extends Solitaire{
 
 	@Override
 	public boolean hasWon() {
-		if(score == 104) {
+		if(getScore().getValue() == 104) {
 			return true;
 		}
 		return false;
@@ -136,6 +135,10 @@ public class AmericanToad extends Solitaire{
 		baseRankView = new IntegerView(baseRank);
 		this.baseRankView.setBounds(740,20, wid, hei);
 		container.addWidget(baseRankView);
+		
+		scoreView = new IntegerView(getScore());
+		scoreView.setBounds(600, 20, wid, hei);
+		container.addWidget(scoreView);
 	}
 	
 	private void initControllers() {
