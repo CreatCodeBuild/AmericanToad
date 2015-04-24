@@ -41,7 +41,7 @@ public class ReservePileController extends SolitaireReleasedAdapter {
 		// Check conditions
 		Column col = (Column) colView.getModelElement();
 		if (col == null) {
-			System.err.println ("BuildablePileController::mousePressed(): Unexpectedly encountered a ColumnView with no Column.");
+			//System.err.println ("BuildablePileController::mousePressed(): Unexpectedly encountered a ColumnView with no Column.");
 			return; // sanity check, but should never happen.
 		}
 		
@@ -56,7 +56,7 @@ public class ReservePileController extends SolitaireReleasedAdapter {
 		// cardView widget reflect the original card location on the screen.
 		Widget w = c.getActiveDraggingObject();
 		if (w != Container.getNothingBeingDragged()) {
-			System.err.println ("BuildablePileController::mousePressed(): Unexpectedly encountered a Dragging Object during a Mouse press.");
+			//System.err.println ("BuildablePileController::mousePressed(): Unexpectedly encountered a Dragging Object during a Mouse press.");
 			return;
 		}
 

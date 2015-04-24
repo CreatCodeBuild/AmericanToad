@@ -2,7 +2,9 @@ package AmericanToadController;
 
 import AmericanToadGame.AmericanToad;
 import AmericanToadGame.MoveDealCard;
+import AmericanToadGame.MoveRestockDeck;
 import ks.common.controller.SolitaireReleasedAdapter;
+import ks.common.model.Card;
 import ks.common.model.Move;
 import ks.common.model.MultiDeck;
 import ks.common.model.Pile;
@@ -21,12 +23,21 @@ public class DeckController extends SolitaireReleasedAdapter {
 	}
 	
 	public void mousePressed (java.awt.event.MouseEvent me) {
-		// Attempting a DealFourCardMove
-		Move m = new MoveDealCard (deck, pileWaste);
-		if (m.doMove(theGame)) {
-			theGame.pushMove(m);
-			theGame.refreshWidgets();
- 		}
+		if(deck.empty()) {
+			System.out.print("1");
+			Move m = new MoveRestockDeck(deck, pileWaste);
+			if(m.doMove(theGame)) {
+				theGame.pushMove(m);
+				theGame.refreshWidgets();
+			}
+		} else {
+			// Attempting a DealFourCardMove
+			Move m = new MoveDealCard (deck, pileWaste);
+			if (m.doMove(theGame)) {
+				theGame.pushMove(m);
+				theGame.refreshWidgets();
+	 		}
+		}
 	}
 
 }

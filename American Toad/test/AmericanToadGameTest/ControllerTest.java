@@ -26,6 +26,9 @@ public class ControllerTest extends KSTestCase {
 	}
 		
 	protected void tearDown() {
+		for(int i = 0; i < 100; i++) {
+			game.undoMove();
+		}
 		gw.setVisible(false);
 		gw.dispose();
 	}
@@ -38,6 +41,13 @@ public class ControllerTest extends KSTestCase {
 		assertEquals (new Card(Card.NINE, Card.DIAMONDS), game.pileWaste.peek());
 		assertTrue (game.undoMove());
 		assertEquals (game.pileWaste.count(), 1);
+		
+		for(int i = 0; i < 100; i++) {
+			game.deckView.getMouseManager().handleMouseEvent(pr);
+		}
+		for(int i = 0; i < 100; i++) {
+			game.undoMove();
+		}
 	}
 	
 	public void testFoundationController() {
