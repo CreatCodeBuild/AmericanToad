@@ -17,7 +17,7 @@ import AmericanToadGame.AmericanToad;
 import AmericanToadGame.MoveCardFromReservePileToTableau;
 import AmericanToadGame.MoveCardFromWastePileToFoundation;
 import AmericanToadGame.MoveCardFromWastePileToTableau;
-import AmericanToadGame.MoveColumnFromTableuToTableau;
+import AmericanToadGame.MoveColumnFromTableauToTableau;
 
 
 public class TableauController extends MouseAdapter {
@@ -71,7 +71,7 @@ public class TableauController extends MouseAdapter {
 				fromWidget.returnWidget (draggingWidget);
 				c.releaseDraggingObject();
 			} else {
-				Move m = new MoveColumnFromTableuToTableau(fromTableau, toTableau, col, col.count());
+				Move m = new MoveColumnFromTableauToTableau(fromTableau, toTableau, col, col.count());
 				if (m.doMove (theGame)) {
 					theGame.pushMove (m);
 				} else {

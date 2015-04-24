@@ -42,25 +42,19 @@ public class MoveCardFromWastePileToTableau extends Move{
 	public boolean valid(Solitaire game) {
 		
 		if (draggingCard == null) {
-			if (fromWastePile.empty()) {
-				return false;   // NOTHING TO EXTRACT!
-			} else {
+			if (!fromWastePile.empty()) {
 				draggingCard = fromWastePile.peek();
 			}
 		}
 		
-		if(toTableau.empty()) {
-			System.out.println(TAG + "::toTableau empty");
-			return true;
-		} else if(draggingCard.getSuit() == toTableau.suit()){
-			if(draggingCard.getRank() + 1 == toTableau.rank()) {
-				System.out.println(TAG + "::1");
+		if(draggingCard != null) {
+			if(toTableau.empty()) {
 				return true;
-			} else {
-				return false;
+			} else if(draggingCard.getSuit() == toTableau.suit() && draggingCard.getRank() + 1 == toTableau.rank()) {
+				return true;
 			}
-		} else {
-			return false;
 		}
+		
+		return false;
 	}
 }

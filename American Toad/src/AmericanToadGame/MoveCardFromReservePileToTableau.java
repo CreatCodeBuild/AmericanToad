@@ -53,9 +53,7 @@ public class MoveCardFromReservePileToTableau extends Move {
 			System.out.println(TAG + "::toTableau empty");
 			return true;
 		} else if(draggingCard.getSuit() == toTableau.suit()){
-			if(draggingCard.getRank() + 1 
-					== toTableau.rank()) {
-				System.out.println(TAG + "::1");
+			if(draggingCard.getRank() + 1 == toTableau.rank()) {
 				return true;
 			} else {
 				return false;

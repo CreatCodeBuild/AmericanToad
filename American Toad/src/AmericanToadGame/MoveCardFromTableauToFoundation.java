@@ -47,31 +47,18 @@ public class MoveCardFromTableauToFoundation extends Move{
 
 	@Override
 	public boolean valid(Solitaire theGame) {
-		if(card == null) {
-			System.out.println(TAG + "::1");
-			return false;
-		} else {
+		if(card != null) {
 			if(toFoundation.empty()) {
-				//if the target foundation is empty, then dragging card must be the base rank
 				if(card.getRank() == baseRank) {
-					System.out.println(TAG + "::2");
 					return true;
-				} else {
-					System.out.println(TAG + "::3");
-					return false;
 				}
 			} else {
-				if(card.getSuit() == toFoundation.suit() 
-				&&( card.getRank() - 1 == toFoundation.rank()
-				|| (card.getRank() == Card.ACE && toFoundation.rank() == Card.KING))) {
-					System.out.println(TAG + "::4");
+				if(card.getSuit() == toFoundation.suit() && ( card.getRank() - 1 == toFoundation.rank() || (card.getRank() == Card.ACE && toFoundation.rank() == Card.KING))) {
 					return true;
-				} else {
-					System.out.println(TAG + "::5");
-					return false;
 				}
 			}
 		}
+		return false;
 	}
 	
 }

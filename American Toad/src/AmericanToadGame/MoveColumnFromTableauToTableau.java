@@ -6,14 +6,14 @@ import ks.common.model.Column;
 import ks.common.model.Move;
 import ks.common.model.Stack;
 
-public class MoveColumnFromTableuToTableau extends Move {
+public class MoveColumnFromTableauToTableau extends Move {
 	
 	protected Column fromTableau;
 	protected Column toTableau;
 	protected Column columnBeingDragged;
 	protected int numCards;
 	
-	public MoveColumnFromTableuToTableau(Column from, Column to, Column c, int num) {
+	public MoveColumnFromTableauToTableau(Column from, Column to, Column c, int num) {
 		fromTableau = from;
 		toTableau = to;
 		columnBeingDragged = c;
@@ -67,20 +67,13 @@ public class MoveColumnFromTableuToTableau extends Move {
 		}
 		
 		//   moveColumnBetweenPiles(Column col, BuildablePile to) : to.empty()
-		if (toTableau.empty())
+		if (toTableau.empty()) {
 			return true;
-
-		// 	  moveColumnBetweenPiles(Column col,BuildablePile to) : not col.empty() and col.bottom() == to.rank() - 1 and to.peek().faceUp() == true
-		if(toTableau.empty()) {
+		} else if(toTableau.suit() == targetColumn.suit() && toTableau.rank() == targetColumn.peek(0).getRank() + 1) {
 			return true;
-		} else {
-			if(toTableau.suit() == targetColumn.suit() 
-			   && toTableau.rank() == targetColumn.peek(0).getRank() + 1) {
-				return true;
-			} else {
-				return false;
-			}
 		}
+		
+		return false;
 	}
 
 }

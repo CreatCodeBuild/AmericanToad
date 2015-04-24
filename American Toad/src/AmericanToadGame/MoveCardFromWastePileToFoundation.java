@@ -56,22 +56,16 @@ public class MoveCardFromWastePileToFoundation extends Move {
 	public boolean valid(Solitaire game) {
 		
 		if (draggingCard == null) {
-			if (fromWastePile.empty()) return false;   // NOTHING TO EXTRACT!
-			draggingCard = fromWastePile.peek();
+			if (!fromWastePile.empty()) {
+				draggingCard = fromWastePile.peek();
+			}
 		}
 		
-		if(draggingCard == null) {
-			System.out.println(TAG + "::1");
-			return false;
-		} else {
+		if(!(draggingCard == null)) {
 			if(toFoundation.empty()) {
-				//if the target foundation is empty, then dragging card must be the base rank
 				if(draggingCard.getRank() == baseRank) {
 					System.out.println(TAG + "::2");
 					return true;
-				} else {
-					System.out.println(TAG + "::3");
-					return false;
 				}
 			} else {
 				if(draggingCard.getSuit() == toFoundation.suit() 
@@ -79,11 +73,9 @@ public class MoveCardFromWastePileToFoundation extends Move {
 				|| (draggingCard.getRank() == Card.ACE && toFoundation.rank() == Card.KING))) {
 					System.out.println(TAG + "::4");
 					return true;
-				} else {
-					System.out.println(TAG + "::5");
-					return false;
 				}
 			}
 		}
+		return false;
 	}
 }
