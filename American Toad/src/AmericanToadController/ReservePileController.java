@@ -46,6 +46,8 @@ public class ReservePileController extends SolitaireReleasedAdapter {
 		}
 		
 		if(col.count() != 1) {
+			src.returnWidget(colView);
+			src.refresh();
 			return;
 		}
 

@@ -11,6 +11,9 @@ import ks.launcher.Main;
 import ks.tests.KSTestCase;
 
 public class ControllerTest extends KSTestCase {
+	
+	MoveTest mt = new MoveTest();
+	
 	// this is the game under test.
 	AmericanToad game;
 		
@@ -93,5 +96,17 @@ public class ControllerTest extends KSTestCase {
 		
 		game.tableauView[1].getMouseManager().handleMouseEvent(releaseT1);
 		
+	}
+	
+	public void testMove() {
+		mt.run();
+
+		mt.testMoveCardFromeReservePileToFoundation();
+		mt.testMoveCardFromReservePileTotTableau();
+		mt.testMoveCardFromTableauToFoundation();
+		mt.testMoveCardFromWastePileToFoundation();
+		mt.testMoveCardFromWastePileToTableau();
+		mt.testMoveColumnFromTableauToTableau();
+		mt.testMoveDealCard();
 	}
 }
