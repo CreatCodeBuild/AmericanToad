@@ -38,14 +38,14 @@ public class TableauController extends MouseAdapter {
 		
 		Widget draggingWidget = c.getActiveDraggingObject();
 		if (draggingWidget == Container.getNothingBeingDragged()) {
-			System.err.println ("TableauController::mouseReleased() unexpectedly found nothing being dragged.");
+			//System.err.println ("TableauController::mouseReleased() unexpectedly found nothing being dragged.");
 			c.releaseDraggingObject();		
 			return;
 		}
 
 		Widget fromWidget = c.getDragSource();
 		if (fromWidget == null) {
-			System.err.println ("TableauController::mouseReleased(): somehow no dragSource in container.");
+			//System.err.println ("TableauController::mouseReleased(): somehow no dragSource in container.");
 			c.releaseDraggingObject();
 			return;
 		}
@@ -55,19 +55,19 @@ public class TableauController extends MouseAdapter {
 		
 		if (fromWidget instanceof ColumnView) {
 			//move cards from tableau to tableau
-			System.out.println(TAG + "::from tableau to tableau");
+			//System.out.println(TAG + "::from tableau to tableau");
 			//from wastePile
 			Column fromTableau = (Column) fromWidget.getModelElement();
 
 			ColumnView colView = (ColumnView) draggingWidget;
 			Column col = (Column) colView.getModelElement();
 			if (col == null) {
-				System.err.println (TAG + "::mouseReleased(): somehow CardView model element is null.");
+				//System.err.println (TAG + "::mouseReleased(): somehow CardView model element is null.");
 				c.releaseDraggingObject();
 				return;
 			}
 			if(fromTableau.equals(toTableau)) {
-				System.out.println(TAG + "::same tableau");
+				//System.out.println(TAG + "::same tableau");
 				fromWidget.returnWidget (draggingWidget);
 				c.releaseDraggingObject();
 			} else {
@@ -75,7 +75,7 @@ public class TableauController extends MouseAdapter {
 				if (m.doMove (theGame)) {
 					theGame.pushMove (m);
 				} else {
-					System.out.println(TAG + "failed on doing MoveCardFromWastePileToFoundation");
+					//System.out.println(TAG + "failed on doing MoveCardFromWastePileToFoundation");
 					fromWidget.returnWidget (draggingWidget);
 				}
 				
@@ -90,12 +90,12 @@ public class TableauController extends MouseAdapter {
 				}
 			}
 		} else if(fromWidget instanceof BuildablePileView) {
-			System.out.println(TAG + "::from reserve pile to tableau");
+			//System.out.println(TAG + "::from reserve pile to tableau");
 			//move card from reserve pile to tableau
 			ColumnView columnView = (ColumnView) draggingWidget;
 			Column col = (Column) columnView.getModelElement();
 			if (col == null) {
-				System.err.println ("BuildablePileController::mouseReleased(): somehow ColumnView model element is null.");
+				//System.err.println ("BuildablePileController::mouseReleased(): somehow ColumnView model element is null.");
 				return;
 			}
 
@@ -106,21 +106,21 @@ public class TableauController extends MouseAdapter {
 				Move m = new MoveCardFromReservePileToTableau(fromPile, toTableau, col.peek());
 
 				if (m.doMove (theGame)) {
-					System.out.println(TAG + "::from reserve pile to tableau success");
+					//System.out.println(TAG + "::from reserve pile to tableau success");
 					theGame.pushMove (m);
 				} else {
-					System.out.println(TAG + "::from reserve pile to tableau invalid");
+					//System.out.println(TAG + "::from reserve pile to tableau invalid");
 					fromPile.push (col);
 				}
 			}	
 		} else {
-			System.out.println(TAG + "::from waste pile to tableau");
+			//System.out.println(TAG + "::from waste pile to tableau");
 			Pile wastePile = (Pile) fromWidget.getModelElement();
 
 			CardView cardView = (CardView) draggingWidget;
 			Card theCard = (Card) cardView.getModelElement();
 			if (theCard == null) {
-				System.err.println ("FoundationController::mouseReleased(): somehow CardView model element is null.");
+				//System.err.println ("FoundationController::mouseReleased(): somehow CardView model element is null.");
 				c.releaseDraggingObject();
 				return;
 			}
@@ -129,7 +129,7 @@ public class TableauController extends MouseAdapter {
 			if (m.doMove (theGame)) {
 				theGame.pushMove (m);
 			} else {
-				System.out.println(TAG + "failed on doing MoveCardFromWastePileToFoundation");
+				//System.out.println(TAG + "failed on doing MoveCardFromWastePileToFoundation");
 				fromWidget.returnWidget (draggingWidget);
 			}
 		}
@@ -168,14 +168,5 @@ public class TableauController extends MouseAdapter {
 		// we simply redraw our source pile to avoid flicker,
 		// rather than refreshing all widgets...
 		src.redraw();
-	}
-	
-	public void mouseClicked(MouseEvent me) {
-		Column c = (Column) src.getModelElement();
-		if(c.empty()) {
-			System.out.println(TAG + "::empty foundation");
-		} else {
-			System.out.println(TAG + "::non empty foundation");
-		}
 	}
 }

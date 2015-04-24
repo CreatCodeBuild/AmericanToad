@@ -34,7 +34,6 @@ public class ReservePileController extends SolitaireReleasedAdapter {
 		// Note that this method will alter the model for BuildablePileView if the condition is met.
 		ColumnView colView = src.getColumnView (me);
 
-		// an invalid selection (either all facedown, or not in faceup region)
 		if (colView == null) {
 			return;
 		}
@@ -44,6 +43,10 @@ public class ReservePileController extends SolitaireReleasedAdapter {
 		if (col == null) {
 			System.err.println ("BuildablePileController::mousePressed(): Unexpectedly encountered a ColumnView with no Column.");
 			return; // sanity check, but should never happen.
+		}
+		
+		if(col.count() != 1) {
+			return;
 		}
 
 		// If we get here, then the user has indeed clicked on the top card in the PileView and

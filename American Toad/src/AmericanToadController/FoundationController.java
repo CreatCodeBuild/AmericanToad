@@ -37,14 +37,14 @@ public class FoundationController extends java.awt.event.MouseAdapter {
 		
 		Widget draggingWidget = c.getActiveDraggingObject();
 		if (draggingWidget == Container.getNothingBeingDragged()) {
-			System.err.println ("FoundationController::mouseReleased() unexpectedly found nothing being dragged.");
+			//System.err.println ("FoundationController::mouseReleased() unexpectedly found nothing being dragged.");
 			c.releaseDraggingObject();		
 			return;
 		}
 
 		Widget fromWidget = c.getDragSource();
 		if (fromWidget == null) {
-			System.err.println ("FoundationController::mouseReleased(): somehow no dragSource in container.");
+			//System.err.println ("FoundationController::mouseReleased(): somehow no dragSource in container.");
 			c.releaseDraggingObject();
 			return;
 		}
@@ -59,7 +59,7 @@ public class FoundationController extends java.awt.event.MouseAdapter {
 			ColumnView columnView = (ColumnView) draggingWidget;
 			Column col = (Column) columnView.getModelElement();
 			if (col == null) {
-				System.err.println ("FoundationController::mouseReleased(): somehow ColumnView model element is null.");
+				//System.err.println ("FoundationController::mouseReleased(): somehow ColumnView model element is null.");
 				c.releaseDraggingObject();			
 				return;
 			}
@@ -76,6 +76,7 @@ public class FoundationController extends java.awt.event.MouseAdapter {
 				if (m.doMove (theGame)) {
 					// Success
 					theGame.pushMove (m);
+					theGame.score += 1;
 				} else {
 					fromWidget.returnWidget (draggingWidget);
 				}
@@ -97,6 +98,7 @@ public class FoundationController extends java.awt.event.MouseAdapter {
 				Move m = new MoveCardFromTableauToFoundation (fromTableau, foundation, col.peek(), theGame.getBaseRank().getValue());
 				if (m.doMove (theGame)) {
 					theGame.pushMove (m);
+					theGame.score += 1;
 				} else {
 					fromWidget.returnWidget (draggingWidget);
 				}
@@ -106,8 +108,6 @@ public class FoundationController extends java.awt.event.MouseAdapter {
 					
 					if(auto.doMove(theGame)) {
 						theGame.pushMove(auto);
-					} else {
-						
 					}
 				}
 			}
@@ -118,7 +118,7 @@ public class FoundationController extends java.awt.event.MouseAdapter {
 			CardView cardView = (CardView) draggingWidget;
 			Card theCard = (Card) cardView.getModelElement();
 			if (theCard == null) {
-				System.err.println ("FoundationController::mouseReleased(): somehow CardView model element is null.");
+				//System.err.println ("FoundationController::mouseReleased(): somehow CardView model element is null.");
 				c.releaseDraggingObject();
 				return;
 			}
@@ -126,22 +126,13 @@ public class FoundationController extends java.awt.event.MouseAdapter {
 			Move m = new MoveCardFromWastePileToFoundation (wastePile, foundation, theCard, theGame.getBaseRank().getValue());
 			if (m.doMove (theGame)) {
 				theGame.pushMove (m);
+				theGame.score += 1;
 			} else {
-				System.out.println(TAG + "failed on doing MoveCardFromWastePileToFoundation");
 				fromWidget.returnWidget (draggingWidget);
 			}
 		}
 
 		c.releaseDraggingObject();
 		c.repaint();
-	}
-	
-	public void mouseClicked(MouseEvent me) {
-		Pile p = (Pile) src.getModelElement();
-		if(p.empty()) {
-			System.out.println(TAG + "::empty foundation");
-		} else {
-			System.out.println(TAG + "::non empty foundation");
-		}
 	}
 }

@@ -38,15 +38,18 @@ public class AmericanToad extends Solitaire{
 	public BuildablePile pileReserve;
 	
 	public PileView foundationView[] = new PileView[8];
-	PileView pileViewWaste;
-	BuildablePileView pileViewReserve;
+	public PileView pileViewWaste;
+	public BuildablePileView pileViewReserve;
 	
 	//tableaus are columns
 	public Column tableau[] = new Column[8];
-	ColumnView tableauView[] = new ColumnView[8];
+	public ColumnView tableauView[] = new ColumnView[8];
 
 	IntegerView baseRankView;
 	MutableInteger baseRank;
+	
+	IntegerView scoreView;
+	public int score = 0;
 
 	public MutableInteger getBaseRank() {
 		return baseRank;
@@ -63,6 +66,9 @@ public class AmericanToad extends Solitaire{
 
 	@Override
 	public boolean hasWon() {
+		if(score == 104) {
+			return true;
+		}
 		return false;
 	}
 	
@@ -114,7 +120,7 @@ public class AmericanToad extends Solitaire{
 		container.addWidget(pileViewWaste);
 		
 		pileViewReserve = new BuildablePileView(pileReserve);
-		pileViewReserve.setBounds(20,20, wid, hei*20);
+		pileViewReserve.setBounds(20,20, wid, hei*6);
 		container.addWidget(pileViewReserve);
 		
 		for(int i = 0; i < 8; i++) {
